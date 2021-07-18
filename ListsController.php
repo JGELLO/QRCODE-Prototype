@@ -30,6 +30,17 @@ class ListsController extends Controller
         return view('first.create');
         
     }
+
+    public function index2()
+    {
+        $first = Lists::latest()->paginate(5);
+
+         return view('first.index2', compact('first'))->with(request()->input('page'));
+
+         
+        // return Lists::all();
+    
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -114,7 +125,7 @@ class ListsController extends Controller
        
         $id = Lists::findOrFail($id);
         $id->delete();
-        return redirect()->route('lists.index');
+        return redirect()->action([ListsController::class, 'index2']);;
         
        
     }
